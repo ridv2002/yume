@@ -1,3 +1,7 @@
 export * from "./user/create-user.controller"
 export * from "./user/delete-user.controller"
 export * from "./user/update-user.controller"
+export * from "./chat/delete-chat.controller"
+export * from "./chat/message-chat.controller"
+export * from "./user/profile-user.controller"
+export * from "./user/login-user.controller"
