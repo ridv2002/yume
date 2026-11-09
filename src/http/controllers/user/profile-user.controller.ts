@@ -8,12 +8,9 @@ const profileUserRepo = new ProfileUserRepository()
 const profileUserService = new ProfileUserService(profileUserRepo)
 
 
-export async function profileUserController(req: FastifyRequest<{Params:{id: string}}> , rep : FastifyReply): Promise <void> {
-
-  const { id } = req.params
-
+export async function profileUserController(req: FastifyRequest, rep : FastifyReply): Promise <void> {
   try {
-    const user = await profileUserService.execute(id)
+    const user = await profileUserService.execute(req.user.id)
     rep.status(201).send(user)
   } catch (err) {
     if (err instanceof Error) {
@@ -23,6 +20,8 @@ export async function profileUserController(req: FastifyRequest<{Params:{id: str
         })
       }
     }
+    rep.status(500).send({
+      message: "internal error"
+    })
   }
-
 }
