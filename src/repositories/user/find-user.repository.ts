@@ -9,8 +9,6 @@ export class FindUserRepository{
     const exUser = await db.query.user.findFirst({
       where: eq(user.email, data.email)
     })
-
-
     return exUser ?? null
   }
 }
