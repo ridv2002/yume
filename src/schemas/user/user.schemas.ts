@@ -23,6 +23,16 @@ export const signUpSchema = createInsertSchema(user, {
 }).omit({
   token: true
 })
+
+export const updateUserSchema  = z.object({
+
+  id: z.uuid({ error: "Uuid Invalido!" }),
+  email: z.email({error: "Precisa ser um email válido"}),
+  name: z.string().min(3, {error: "Nome precisa ter pelo menos 5 caracteres"}),
+  lastName: z.string().min(5, { error: "Sobrenome precisa ter pelo menos 5 caracteres" }),
+  icon: z.url().default("https://i.pinimg.com/736x/5b/19/0c/5b190c0ba0150f06f141ef1ac4f45a10.jpg")
+
+})
 // Login
 export const signInSchema = z.object({
 
@@ -49,5 +59,6 @@ export const publicUserSchema = selectUserSchema.omit({
 // Tipos TypeScript
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 export type PublicUser = z.infer<typeof publicUserSchema>;
 export type FindUser = z.infer<typeof findUserSchema>
