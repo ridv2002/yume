@@ -3,6 +3,7 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from "fast
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import type { FastifyTypedInstance } from "./types/fastify-instance";
 import { user } from "./http/routes";
+import { registerPlugins } from "./configs/fastify";
 
 
 export async function register(
@@ -11,6 +12,7 @@ export async function register(
 
   fastify.setValidatorCompiler(validatorCompiler);
   fastify.setSerializerCompiler(serializerCompiler);
+
 
   await fastify.register(fastifySwagger, {
       openapi: {
@@ -27,6 +29,7 @@ export async function register(
      routePrefix: "/docs",
   });
 
+  await registerPlugins(fastify)
 
   await fastify.register(user)
 
