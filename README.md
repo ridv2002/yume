@@ -1,10 +1,8 @@
 <div align="center">
   <img src="https://pub-ed08c8e5f5f84dbfa412976517d4cfc6.r2.dev/Raposa%20Vermelha%20em%20Tra%C3%A7os%20de%20Tinta.png" alt="Logo do Yume: raposa vermelha em traços de tinta" width="180" />
-
-  # Yume
-
-  **Um chatbot para conversar, criar e conectar suas ferramentas em um só lugar.**
 </div>
+
+
 
 > **Status:** projeto em desenvolvimento. A interface de chat, os modelos de IA e as integrações descritas abaixo ainda fazem parte da visão do produto.
 
@@ -13,6 +11,11 @@
 O Yume está sendo construído para ser um chatbot completo que você poderá executar no seu computador. A proposta é oferecer escolha entre modelos de IA locais e provedores externos, além de conectar serviços como WhatsApp e GitHub para reunir conversas e fluxos de trabalho em uma única experiência.
 
 ### Visão do produto
+
+<div align="center">
+  <img src="https://pub-ed08c8e5f5f84dbfa412976517d4cfc6.r2.dev/mock.png" alt="Logo do Yume: raposa vermelha em traços de tinta" width="full" />
+</div>
+####  Visão de como vai ser a dash
 
 - Conversar com modelos de IA em uma interface própria.
 - Usar modelos locais ou configurar provedores externos.
