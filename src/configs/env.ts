@@ -14,6 +14,7 @@ interface Env {
   PORT: number;
   DATABASE_URL: string;
   JWT_SECRET: string;
+  COOKIE_SECRET: string;
   SUPABASE_SERVICE_ROLE_KEY: string;
   SUPABASE_URL: string;
   SUPABASE_STORAGE_BUCKET: string;
@@ -30,6 +31,7 @@ export const env: Env = {
   PORT: Number(process.env.PORT ?? 3000),
   DATABASE_URL: process.env.DATABASE_URL!,
   JWT_SECRET: process.env.JWT_SECRET!,
+  COOKIE_SECRET: process.env.COOKIE_SECRET!,
   SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY!,
   SUPABASE_URL: process.env.SUPABASE_URL!,
   SUPABASE_STORAGE_BUCKET: process.env.SUPABASE_STORAGE_BUCKET!,
