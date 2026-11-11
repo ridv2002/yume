@@ -23,6 +23,11 @@ interface Env {
   S3_ENDPOINT: string;
   MONGODB_URI: string;
   MONGODB_DATABASE: string;
+  GEMMA_API_URL: string;
+
+  GEMINI_API_URL: string;
+  GEMINI_API_KEY: string;
+  GEMINI_MODEL: string
 }
 
 
@@ -40,5 +45,9 @@ export const env: Env = {
   S3_ENDPOINT: process.env.S3_ENDPOINT!,
   MONGODB_URI: process.env.MONGODB_URI!,
   MONGODB_DATABASE: process.env.MONGODB_DATABASE!,
+  GEMMA_API_URL: process.env.GEMMA_API_URL!,
+  GEMINI_API_URL: process.env.GEMINI_API_URL!,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY!,
+  GEMINI_MODEL: process.env.GEMINI_MODEL!,
 
 };
