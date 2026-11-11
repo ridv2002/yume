@@ -1,9 +1,15 @@
+import type { FastifyTypedInstance } from "./types/fastify-instance";
+
 import fastifySwagger from "@fastify/swagger";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import type { FastifyTypedInstance } from "./types/fastify-instance";
-import { user } from "./http/routes";
 import { registerPlugins } from "./configs/fastify";
+
+
+import {
+  user,
+  chat
+} from "./http/routes";
 
 
 export async function register(
@@ -17,7 +23,7 @@ export async function register(
   await fastify.register(fastifySwagger, {
       openapi: {
         info: {
-          title: "igins-api",
+          title: "yume-api",
           version: "0.0.1",
         },
         components: {},
@@ -32,5 +38,6 @@ export async function register(
   await registerPlugins(fastify)
 
   await fastify.register(user)
+  await fastify.register(chat)
 
 }
