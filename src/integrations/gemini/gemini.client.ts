@@ -37,17 +37,13 @@ Resposta:
 
 export class GeminiClient {
   private readonly baseUrl: string;
-  private readonly apiKey: string;
-  private readonly model: string;
+  private readonly apiKey : string;
+  private readonly model  : string;
 
   constructor() {
-    this.baseUrl = (
-      env.GEMINI_API_URL ??
-      "https://generativelanguage.googleapis.com/v1beta"
-    ).replace(/\/$/, "");
-
-    this.apiKey = env.GEMINI_API_KEY;
-    this.model = env.GEMINI_MODEL ?? "gemini-2.5-flash";
+    this.baseUrl = env.GEMINI_API_URL;
+    this.apiKey  = env.GEMINI_API_KEY;
+    this.model   = env.GEMINI_MODEL;
   }
 
   async generate(prompt: string) {
