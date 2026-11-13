@@ -1,15 +1,22 @@
 import { relations } from "drizzle-orm";
-import { user } from "../../schemas";
-import { chats } from "../chats/chats";
+import { user , chats , messageChat } from "../../schemas";
 
-export const usersRelations = relations(user, ({ many }) => ({
+export const userRelation = relations(user, ({ many }) => ({
   chats: many(chats),
 }));
 
-
-export const chatsRelations = relations(chats, ({ one }) => ({
-  user: one(user, {
+export const chatsRelation = relations(chats, ({ one, many }) => ({
+  owner: one(user, {
     fields: [chats.ownerId],
     references: [user.id],
+  }),
+
+  messages: many(messageChat),
+}));
+
+export const messageRelation = relations(messageChat, ({ one }) => ({
+  chat: one(chats, {
+    fields: [messageChat.chatId],
+    references: [chats.id],
   }),
 }));
