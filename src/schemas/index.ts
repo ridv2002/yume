@@ -1,2 +1,6 @@
 export * from "./user/user.schemas"
 export * from "./gemini/gemini.schema"
+export * from "./gemini/gemini-response"
+export * from "./chat/create-chat.schema"
+export * from "./chat/message-chat.schema"
+export * from "./chat/chat.schema"
