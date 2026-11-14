@@ -23,7 +23,9 @@ export const geminiResponseSchema = z.object({
   }).optional(),
 });
 
+// Conteúdo gerado pelo Gemini
 export const geminiContentSchema = z.object({
+  title: z.string(),
   content: z.string(),
 
   context: z.object({

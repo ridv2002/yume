@@ -23,4 +23,6 @@ export const messageChat = pgTable("message_chat", {
     .references(() => chats.id),
 
   prompt: text("prompt").notNull(),
+
+  response: text("response").notNull(),
 });

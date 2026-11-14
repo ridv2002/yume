@@ -6,7 +6,7 @@ export class GeminiService {
     this.geminiClient = geminiClient
   }
 
-  async execute(prompt: string) {
-    return this.geminiClient.generate(prompt);
+  async execute(prompt: string, resSchema: object , model: string, systemPrompt: string) {
+    return this.geminiClient.generate(prompt , systemPrompt , model , resSchema);
   }
 }

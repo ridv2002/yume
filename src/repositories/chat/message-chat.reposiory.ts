@@ -10,10 +10,6 @@ export class MessageChatRepository{
 
     const [message] = await db.insert(messageChat).values(data).returning()
 
-    if (!message) {
-      return null
-    }
-
-    return message
+    return message ?? null
   }
 }

@@ -1,54 +1,19 @@
-
 import { env } from "../../configs/env";
 import { geminiContentSchema, geminiResponseSchema } from "../../schemas";
-
-
-
-const systemPrompt = `
-Você é um assistente de IA com memória persistente.
-
-Responda sempre em português brasileiro.
-
-REGRAS:
-1. content contém a resposta ao usuário.
-2. memories contém fatos duradouros sobre o usuário.
-3. Memorize projetos, preferências e objetivos.
-4. Não memorize cumprimentos ou perguntas genéricas.
-5. Não invente informações sobre o usuário.
-6. Não memorize informações criadas pelo assistente.
-7. Se não houver memórias, use shouldSave false.
-8. Se houver memórias, use shouldSave true.
-9. Retorne somente JSON válido.
-
-Exemplo:
-Usuário: Estou criando o projeto Yume com TypeScript.
-
-Resposta:
-{
-  "content": "Legal! Como posso ajudar com o Yume?",
-  "context": {
-    "shouldSave": true,
-    "memories": [
-      "O usuário desenvolve o projeto Yume com TypeScript."
-    ]
-  }
-}
-`;
 
 export class GeminiClient {
   private readonly baseUrl: string;
   private readonly apiKey : string;
-  private readonly model  : string;
 
   constructor() {
     this.baseUrl = env.GEMINI_API_URL;
     this.apiKey  = env.GEMINI_API_KEY;
-    this.model   = env.GEMINI_MODEL;
   }
 
-  async generate(prompt: string) {
+  async generate(prompt: string, systemPrompt: string, model: string, resSchema: object) {
+    console.log(model)
     const response = await fetch(
-      `${this.baseUrl}/models/${this.model}:generateContent`,
+      `${this.baseUrl}/models/${model}:generateContent`,
       {
         method: "POST",
         headers: {
@@ -78,42 +43,15 @@ export class GeminiClient {
 
             responseMimeType: "application/json",
 
-            responseSchema: {
-              type: "OBJECT",
-              properties: {
-                content: {
-                  type: "STRING",
-                },
-                context: {
-                  type: "OBJECT",
-                  properties: {
-                    shouldSave: {
-                      type: "BOOLEAN",
-                    },
-                    memories: {
-                      type: "ARRAY",
-                      items: {
-                        type: "STRING",
-                      },
-                    },
-                  },
-                  required: [
-                    "shouldSave",
-                    "memories",
-                  ],
-                },
-              },
-              required: [
-                "content",
-                "context",
-              ],
-            },
+            responseSchema: resSchema
           },
         }),
 
         signal: AbortSignal.timeout(120000),
       }
     );
+
+    console.log(response)
 
     if (!response.ok) {
       const error = await response.text();
@@ -154,6 +92,7 @@ export class GeminiClient {
       : [];
 
     return {
+      title: result.title,
       content: result.content,
 
       context: {
@@ -162,14 +101,9 @@ export class GeminiClient {
       },
 
       usage: {
-        prompt_tokens:
-          data.usageMetadata?.promptTokenCount ?? 0,
-
-        completion_tokens:
-          data.usageMetadata?.candidatesTokenCount ?? 0,
-
-        total_tokens:
-          data.usageMetadata?.totalTokenCount ?? 0,
+        prompt_tokens: data.usageMetadata?.promptTokenCount ?? 0,
+        completion_tokens: data.usageMetadata?.candidatesTokenCount ?? 0,
+        total_tokens: data.usageMetadata?.totalTokenCount ?? 0,
       },
 
       finishReason: candidate.finishReason,
